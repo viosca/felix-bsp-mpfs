@@ -140,7 +140,7 @@ static void init_task(void *arg) {
     kprintf("\r\n[Kernel] flx_sh_main returned. This should not happen. Status: %d\r\n", status);
 
     /* Teardown if it exits */
-    flx_proc_exit();
+    flx_proc_exit(-1);
 }
 
 void u54_1(void)

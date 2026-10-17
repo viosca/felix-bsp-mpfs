@@ -58,7 +58,7 @@ MEMORY
     ddr_wcb_38bit (rwx) : ORIGIN  = 0x1800000000, LENGTH  = 0k
 }
 
-HEAP_SIZE           = 32k;   /* needs to be calculated for your application */
+HEAP_SIZE           = 1k;   /* needs to be calculated for your application */
 
 /*
  * There is common area for shared variables, accessed from a pointer in a harts HLS
