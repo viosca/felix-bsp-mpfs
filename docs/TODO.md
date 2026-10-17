@@ -1,6 +1,6 @@
 # Felix OS & PolarFire SoC Development TODO
 
-This document tracks active development goals, known issues, and planned milestones for Felix OS running on the Microchip PolarFire SoC Discovery Kit.
+This document tracks active development goals, architectural milestones, and planned tasks for Felix OS on the Microchip PolarFire SoC Discovery Kit.
 
 ---
 
@@ -44,23 +44,65 @@ Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather t
 
 ---
 
-## 3. Toybox Integration & Expansion (in DDR)
+## 3. Configurability Subsystem (Kconfig)
 
-With DDR memory available (expanding available RAM from <512KB to >32MB):
+Adopt the in-tree Kconfig system from `felix/external/toybox/kconfig` to generate compile-time profile headers (`autoconf.h`). (See [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/bar/docs/dynamic_loading_and_configurability_design.md)).
 
-- [ ] **Heap Restoration**
-  - [ ] Increase linker `HEAP_SIZE` from `1k` back to `32MB+` in `mpfs-ddr-debug.ld`.
-- [ ] **Enable Standard Toybox Utilities**
-  - [ ] Enable core file utilities: `ls`, `cat`, `cp`, `mv`, `rm`, `mkdir`, `rmdir`, `touch`.
-  - [ ] Enable text processing: `grep`, `sed`, `head`, `tail`, `wc`, `echo`, `sort`.
-  - [ ] Enable system info & diagnostic tools: `free`, `uname`, `uptime`, `ps`, `df`, `dd`.
-- [ ] **Interactive Shell & Line Editing**
-  - [ ] Verify `linenoise` integration inside `flx_sh`.
-  - [ ] Test command history, autocomplete, and signal handling (`SIGINT` / Ctrl+C).
+- [ ] **Kconfig Tooling Integration**
+  - [ ] Wire build targets to compile host `conf` / `mconf` from `felix/external/toybox/kconfig/`.
+  - [ ] Create root `Kconfig` for Felix defining memory models, loader options, and POSIX features.
+- [ ] **Target Defconfigs**
+  - [ ] Create `disco_lim_defconfig` (monolithic, <150 KB, deterministic real-time, no loader).
+  - [ ] Create `disco_ddr_defconfig` (DDR memory, ELF loader, dynamic libraries, full POSIX).
+  - [ ] Create `disco_amp_defconfig` (Harts 1-3 LIM control, Hart 4 DDR supervisor).
+- [ ] **Header Generation**
+  - [ ] Validate automated generation of `include/generated/autoconf.h`.
 
 ---
 
-## 4. VFS, Storage & Peripheral Maturation
+## 4. Position-Independent Dynamic ELF Loader & Shared Libraries (DLL / `.so`)
+
+Enable loading external applications and runtime driver plugins from VFS into DDR RAM. (See [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/bar/docs/dynamic_loading_and_configurability_design.md)).
+
+- [ ] **Kernel Symbol Export (`ksymtab`)**
+  - [ ] Implement `FLX_EXPORT_SYMBOL()` registry for C runtime, POSIX, and FreeRTOS APIs.
+  - [ ] Implement symbol lookup routine `flx_ksymtab_lookup(const char *name)`.
+- [ ] **Static PIE ELF Loader Core (`flx_elf_loader.c`)**
+  - [ ] Implement ELF64 header validation (`EM_RISCV`, `ET_DYN` / `ET_REL`).
+  - [ ] Parse `PT_LOAD` segments and allocate memory span from DDR heap.
+  - [ ] Implement relocation handler for RV64 (`R_RISCV_RELATIVE`, `R_RISCV_64`, `R_RISCV_JUMP_SLOT`).
+  - [ ] Zero BSS sections (`.bss`, `.sbss`).
+- [ ] **Process Execution Plumbing**
+  - [ ] Implement `flx_proc_exec()` in `felix/kernel/process.c` called by `execvp()`.
+  - [ ] Set up user process stack, `argc`, `argv`, and environment pointers.
+  - [ ] Spawn execution thread via `sched_thread_create()`.
+  - [ ] Reclaim allocated DDR memory and clean up PCB on `exit()`.
+- [ ] **Dynamic Library / Plugin API (`dlopen` / `dlsym`)**
+  - [ ] Implement `dlopen()` to load `.so` files into DDR and resolve against `ksymtab`.
+  - [ ] Implement `dlsym()` to query function symbols from loaded module's `.dynsym`.
+  - [ ] Implement `dlclose()` to invoke destructors and free memory.
+
+---
+
+## 5. Toybox Suite on SD Card (External Execution)
+
+Decouple Toybox from the kernel binary and deploy it as standalone binaries in `/bin` on the FAT32 SD card partition.
+
+- [ ] **Build Standalone Toybox PIE Binary**
+  - [ ] Configure Toybox build with `-fPIE -pie` targeting RISC-V 64.
+  - [ ] Link Toybox against Felix's exported symbols (or standalone static-PIE).
+  - [ ] Place multicall `toybox` binary into `/bin/toybox` on the SD card image.
+- [ ] **Enable Expanded Toybox Utility Suite**
+  - [ ] File tools: `ls`, `cat`, `cp`, `mv`, `rm`, `mkdir`, `rmdir`, `touch`.
+  - [ ] Text tools: `grep`, `sed`, `head`, `tail`, `wc`, `echo`, `sort`.
+  - [ ] System info: `free`, `uname`, `uptime`, `ps`, `df`, `dd`.
+- [ ] **Interactive Shell Integration**
+  - [ ] Test command execution from `flx_sh` via `$PATH` resolution (`/bin/<cmd>`).
+  - [ ] Test symlink or multicall dispatch (`/bin/ls` -> `/bin/toybox ls`).
+
+---
+
+## 6. VFS, Storage & Peripheral Maturation
 
 - [ ] **SD/eMMC Card Driver & Hotplugging**
   - [ ] Re-enable `flx_blk_manager_init()` and `blk_manager_daemon_task` in `init_task()`.
@@ -74,7 +116,7 @@ With DDR memory available (expanding available RAM from <512KB to >32MB):
 
 ---
 
-## 5. Hardware Bench & Toolchain Testing
+## 7. Hardware Bench & Toolchain Testing
 
 - [ ] **Flash & Run LIM Build on Board**
   - [ ] Load `LIM-Debug-DiscoveryKit` binary via SoftConsole JTAG.
@@ -84,4 +126,4 @@ With DDR memory available (expanding available RAM from <512KB to >32MB):
   - [ ] Check if E51 finishes DDR training and passes execution to Hart 1.
   - [ ] Check if trap occurs on DDR access (validating PMP configuration).
 - [ ] **Headless Command-Line Build Scripts**
-  - [ ] Create a PowerShell/Makefile helper to build both targets without launching the Eclipse GUI.
+  - [ ] Create a PowerShell/Makefile helper to build targets without launching Eclipse GUI.
