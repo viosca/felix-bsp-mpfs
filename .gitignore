@@ -18,6 +18,7 @@
 # 4. TRACK the Microchip Boot Code & Board Init (The "Glue")
 !/src/application/
 !/src/boards/
+!/src/drivers/
 
 # 4b. IGNORING UNUSED BOARDS
 # Ignore everything inside boards/ first
