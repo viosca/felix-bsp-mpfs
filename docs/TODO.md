@@ -53,15 +53,15 @@ Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather t
 
 Adopt the in-tree Kconfig system from `felix/external/toybox/kconfig` to generate compile-time profile headers (`autoconf.h`). (See [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/bar/docs/dynamic_loading_and_configurability_design.md)).
 
-- [ ] **Kconfig Tooling Integration**
-  - [ ] Wire build targets to compile host `conf` / `mconf` from `felix/external/toybox/kconfig/`.
-  - [ ] Create root `Kconfig` for Felix defining memory models, loader options, and POSIX features.
-- [ ] **Target Defconfigs**
-  - [ ] Create `disco_lim_defconfig` (monolithic, <150 KB, deterministic real-time, no loader).
-  - [ ] Create `disco_ddr_defconfig` (DDR memory, ELF loader, dynamic libraries, full POSIX).
-  - [ ] Create `disco_amp_defconfig` (Harts 1-3 LIM control, Hart 4 DDR supervisor).
-- [ ] **Header Generation**
-  - [ ] Validate automated generation of `include/generated/autoconf.h`.
+- [x] **Kconfig Tooling Integration**
+  - [x] Integrate portable Python `kconfiglib` runner into `felix/scripts/kconfig.py`.
+  - [x] Create root `Kconfig` for Felix defining memory models, loader options, and POSIX features.
+- [x] **Target Defconfigs**
+  - [x] Create `disco_lim_defconfig` (monolithic, <150 KB, deterministic real-time, no loader).
+  - [x] Create `disco_ddr_defconfig` (DDR memory, ELF loader, dynamic libraries, full POSIX).
+  - [x] Create `disco_amp_defconfig` (Harts 1-3 LIM control, Hart 4 DDR supervisor).
+- [x] **Header Generation**
+  - [x] Validate automated generation of `include/generated/autoconf.h`.
 
 ---
 
