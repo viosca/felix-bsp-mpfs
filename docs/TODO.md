@@ -2,6 +2,11 @@
 
 This document tracks active development goals, architectural milestones, and planned tasks for Felix OS on the Microchip PolarFire SoC Discovery Kit.
 
+Core architectural standards and multi-platform guidelines are documented in:
+* [`docs/portability_and_architecture_rules.md`](file:///c:/git/bar/docs/portability_and_architecture_rules.md) (Cross-Architecture Guidelines)
+* [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/bar/docs/dynamic_loading_and_configurability_design.md) (ELF Loader & Kconfig Architecture)
+* [`docs/freertos_posix_integration_plan.md`](file:///c:/git/bar/docs/freertos_posix_integration_plan.md) (FreeRTOS+POSIX Plan)
+
 ---
 
 ## 1. DDR Execution & Boot Architecture
