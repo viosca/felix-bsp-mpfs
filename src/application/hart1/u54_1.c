@@ -27,7 +27,7 @@ volatile uint32_t count_sw_ints_h1 = 0U;
 
 /* Hardware-specific polling transmission for early boot logs */
 static void mss_early_putc(char c) {
-    MSS_UART_polled_tx(&g_mss_uart1_lo, (const uint8_t *)&c, 1);
+    MSS_UART_polled_tx(&g_mss_uart4_lo, (const uint8_t *)&c, 1);
 }
 
 void felix_earlycon(void) {
@@ -36,16 +36,16 @@ void felix_earlycon(void) {
      * ========================================================= */
     uint32_t hart_id = read_csr(mhartid);
 
-    /* 1. Turn on the peripheral clock for UART1 */
-    mss_config_clk_rst(MSS_PERIPH_MMUART1, (uint8_t)hart_id, PERIPHERAL_ON);
+    /* 1. Turn on the peripheral clock for UART4 */
+    mss_config_clk_rst(MSS_PERIPH_MMUART4, (uint8_t)hart_id, PERIPHERAL_ON);
 
     /* 2. Configure the silicon for 115200 8N1 (No Interrupts yet!) */
-    MSS_UART_init(&g_mss_uart1_lo, MSS_UART_115200_BAUD,
+    MSS_UART_init(&g_mss_uart4_lo, MSS_UART_115200_BAUD,
                   MSS_UART_DATA_8_BITS | MSS_UART_NO_PARITY | MSS_UART_ONE_STOP_BIT);
 
     flx_klog_set_earlycon(mss_early_putc);
 
-    kprintf("\r\n[Bootloader] CPU Hart %d awake. Early console active.\r\n", hart_id);
+    kprintf("\r\n[Bootloader] CPU Hart %d awake. Early console active on MMUART4 (COM5).\r\n", hart_id);
 }
 void test_memory_wrappers(void) {
     kprintf("\n--- STARTING MEMORY DIAGNOSTICS ---\n");
@@ -100,7 +100,7 @@ static void init_task(void *arg) {
     flx_proc_init_current(FLX_PROC_PID_INIT);
 
     /* Register Devices */
-    status = felix_register_uart(1, &g_mss_uart1_lo, &g_mss_uart_ops);
+    status = felix_register_uart(4, &g_mss_uart4_lo, &g_mss_uart_ops);
     if (status) {
         kprintf("\r\n[Kernel] Failed to register uart. Status: %d\r\n", status);
     }
@@ -112,7 +112,7 @@ static void init_task(void *arg) {
     flx_fs_dev_register_chr("mmuart3", 4, 3, &g_flx_serial_vfs_ops);
     flx_fs_dev_register_chr("mmuart4", 4, 4, &g_flx_serial_vfs_ops);
     flx_fs_dev_register_chr("tty01", 4, 1, &g_flx_serial_vfs_ops);
-    flx_fs_dev_register_chr("console", 4, 1, &g_flx_serial_vfs_ops);
+    flx_fs_dev_register_chr("console", 4, 4, &g_flx_serial_vfs_ops);
 
     /* Bind Standard I/O */
     if (felix_console_bind("/dev/console") != 0) {
@@ -148,17 +148,7 @@ void u54_1(void)
     /* Global Interrupts are OFF at this point (from boot) */
     PLIC_init();
 
-    /* Clear any old software interrupts and unmask MSIP to allow WFI wake-up */
-    clear_soft_interrupt();
-    set_csr(mie, MIP_MSIP);
-
-    /* Sleep until E51 signals us.
-     * Because MIE is 0, the CPU won't trap to the ISR, it just wakes up. */
-    do {
-        __asm("wfi");
-    } while(0 == (read_csr(mip) & MIP_MSIP));
-
-    /* Awake! Clear the SW interrupt manually before enabling global IRQs. */
+    /* Clear any old software interrupts */
     clear_soft_interrupt();
 
     /* Enable External (PLIC) and Software Interrupts, then turn on Global IRQs. */

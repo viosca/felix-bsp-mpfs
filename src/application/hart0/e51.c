@@ -10,10 +10,63 @@
 #include <stdio.h>
 #include <string.h>
 #include "mpfs_hal/mss_hal.h"
+#include "mpfs_hal/startup_gcc/system_startup.h"
+#include "mpfs_hal/startup_gcc/system_startup_defs.h"
 #include "drivers/mss/mss_mmuart/mss_uart.h"
 //#include "inc/uart_mapping.h"
 
 volatile uint32_t count_sw_ints_h0 = 0U;
+
+static void init_constructors(void)
+{
+    void (**fun_ptr)(void) = (void (**)(void))&__init_array_start;
+    while (fun_ptr != (void (**)(void))&__init_array_end)
+    {
+        (*fun_ptr)();
+        fun_ptr++;
+    }
+}
+
+extern void u54_1(void);
+
+/*
+ * Override the weak main_first_hart_app() from MPFS HAL.
+ * When Hart 0 is first hart (e.g. JTAG boot):
+ *   Initializes memory, signals Hart 1, and runs e51().
+ * When Hart 1 is first hart (e.g. HSS bootloader):
+ *   Initializes memory and runs u54_1().
+ */
+int main_first_hart_app(HLS_DATA* hls)
+{
+    uint64_t hartid = read_csr(mhartid);
+
+    init_memory();
+    init_constructors();
+
+    hls->in_wfi_indicator = HLS_MAIN_HART_STARTED;
+
+    if (hartid == 0U)
+    {
+        /* Allow Hart 1 to observe HLS_MAIN_HART_STARTED and enter WFI */
+        for (volatile uint32_t i = 0; i < 50000; i++) { }
+
+        /* Clear pending interrupts and wake up Hart 1 (U54_1) */
+        clear_soft_interrupt();
+        set_csr(mie, MIP_MSIP);
+        raise_soft_interrupt(1U);
+        __enable_irq();
+
+        /* Run Hart 0 application code */
+        e51();
+    }
+    else if (hartid == 1U)
+    {
+        /* Run Hart 1 application code directly */
+        u54_1();
+    }
+
+    return 0;
+}
 
 /* Main function for the hart0(e51 processor).
  * Application code running on hart0 is placed here
@@ -40,8 +93,6 @@ void e51(void)
     MSS_UART_polled_tx_string(p_uartmap_e51, g_info_string);
 #endif
 
-#if (IMAGE_LOADED_BY_BOOTLOADER == 0)
-
     /* Clear pending software interrupt in case there was any. */
     clear_soft_interrupt();
     set_csr(mie, MIP_MSIP);
@@ -50,7 +101,6 @@ void e51(void)
     raise_soft_interrupt(1U);
 
     __enable_irq();
-#endif
 
     while (1U)
     {

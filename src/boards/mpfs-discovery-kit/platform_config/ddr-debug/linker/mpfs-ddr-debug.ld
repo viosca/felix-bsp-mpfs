@@ -72,7 +72,7 @@ MEMORY
     ddr_non_cached_38bit (rwx) : ORIGIN  = 0x1400000000, LENGTH = 896M
     ddr_wcb_38bit (rwx) : ORIGIN  = 0x1800000000, LENGTH  = 0k
 }
-HEAP_SIZE           = 8k;   /* needs to be calculated for your application */
+HEAP_SIZE           = 4M;   /* needs to be calculated for your application */
 
 /*
  * There is common area for shared variables, accessed from a pointer in a harts HLS
@@ -97,8 +97,8 @@ SIZE_OF_COMMON_HART_MEM = 4k;
  * These are the stack sizes that will be allocated to each hart before starting
  * each hart's application function, e51(), u54_1(), u54_2(), u54_3(), u54_4().
  */
-STACK_SIZE_E51_APPLICATION = 0k;
-STACK_SIZE_U54_1_APPLICATION = 8k;
+STACK_SIZE_E51_APPLICATION = 8k;
+STACK_SIZE_U54_1_APPLICATION = 16k;
 STACK_SIZE_U54_2_APPLICATION = 8k;
 STACK_SIZE_U54_3_APPLICATION = 8k;
 STACK_SIZE_U54_4_APPLICATION = 8k;
