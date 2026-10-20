@@ -6,6 +6,7 @@
 !/.cproject
 !/.gitignore
 !/.gitmodules
+!/launch_configs/
 !/src/
 !/docs/
 !/README.md
