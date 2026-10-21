@@ -17,7 +17,7 @@
 !/mpfs-platform/
 
 # 4. TRACK the Microchip Boot Code & Board Init (The "Glue")
-!/src/application/
+!/src/boot/
 !/src/boards/
 !/src/drivers/
 

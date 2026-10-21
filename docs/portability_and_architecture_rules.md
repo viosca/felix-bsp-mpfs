@@ -33,7 +33,7 @@ The `felix` repository is a **pure OS middleware component**. It must have zero 
 ```mermaid
 graph TD
     subgraph UmbrellaMPFS["felix-proj-mpfs (PolarFire SoC)"]
-        A1["src/application (Hart Boot & PLIC)"]
+        A1["src/boot (Hart Boot & PLIC)"]
         A2["src/boards (Discovery Kit Config & Linker)"]
         A3["src/platform -> mpfs-platform (Vendor HAL)"]
         A4["src/middleware/felix -> felix"]
@@ -59,7 +59,7 @@ graph TD
 ```
 
 * **Where code belongs:**
-  - Board startup, hart wake-up, clock tree configuration, and linker scripts belong strictly in the **umbrella wrapper project** (`src/application/` and `src/boards/`).
+  - Board startup, hart wake-up, clock tree configuration, and linker scripts belong strictly in the **umbrella wrapper project** (`src/boot/` and `src/boards/`).
   - Silicon vendor SDKs (Microchip `mpfs-platform`, Alif CMSIS, NXP MCUXpresso) are imported into the wrapper project as `src/platform/`.
   - When porting to a new chip, `felix` core remains unchanged. We create a new umbrella project (e.g., `felix-proj-alif`) that links to the same `felix` Git submodule.
 
