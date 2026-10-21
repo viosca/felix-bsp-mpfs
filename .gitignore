@@ -11,6 +11,8 @@
 !/docs/
 !/README.md
 !/LICENSE.md
+!/setup_workspace.ps1
+!/setup_workspace.sh
 
 # 3. Un-ignore (keep) the submodule gitlinks
 !/felix/
