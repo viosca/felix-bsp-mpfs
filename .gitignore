@@ -11,6 +11,8 @@
 !/docs/
 !/README.md
 !/LICENSE.md
+!/felix_payload.yaml
+!/scripts/
 !/setup_workspace.ps1
 !/setup_workspace.sh
 

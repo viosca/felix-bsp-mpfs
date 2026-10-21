@@ -25,11 +25,11 @@ Resolve the memory bottleneck where PolarFire's 512KB LIM is insufficient for Fe
   - [x] Clone `hart-software-services` and compile `hss-payload-generator`.
   - [x] Back up MicroSD card (`hello.txt`, `zzz` to `scratch/sd_backup`).
   - [x] Create `felix_payload.yaml` and generate verified `payload.bin` (224 KB, `PRV_M`, `skip-opensbi`).
-  - [x] Author automated preparation scripts `scratch/prepare_sd.ps1` and `scratch/prepare_sd.bat` (GPT dual-partition: 64MB HSS boot + ~238GB exFAT `FELIX_SD`).
+  - [x] Author automated preparation scripts `scripts/prepare_sd.ps1` and `scripts/prepare_sd.bat` (GPT dual-partition: 64MB HSS boot + ~238GB exFAT `FELIX_SD`).
   - [x] Successfully partition and flash MicroSD card on Windows.
   - [x] Verify autonomous boot into DDR at `0x80000000` via HSS on hardware.
   - [x] Reconfigure Felix console to `MMUART4` (`COM5`) to align with Discovery Kit reference design and eliminate contention with HSS on `COM4`.
-  - [x] Author fast payload updater `scratch/update_payload.bat` / `scratch/update_payload.ps1`.
+  - [x] Author fast payload updater `scripts/update_payload.bat` / `scripts/update_payload.ps1` and `scripts/generate_payload.ps1`.
   - [x] Write updated `payload.bin` to SD card and verify interactive shell input on `COM5`.
   - [x] Diagnose missing `/dev/sd0p*` partition nodes: identified buffer overwrite bug in `part_gpt.c` and buffer alignment issues.
   - [x] Fix `part_gpt.c` header caching, add 64-bit alignment to `part_gpt.c` & `part_mbr.c`, rebuild ELF and regenerate `payload.bin`.
