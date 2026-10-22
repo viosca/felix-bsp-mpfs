@@ -47,46 +47,7 @@ void felix_earlycon(void) {
 
     kprintf("\r\n[Bootloader] CPU Hart %d awake. Early console active on MMUART4 (COM5).\r\n", hart_id);
 }
-void test_memory_wrappers(void) {
-    kprintf("\n--- STARTING MEMORY DIAGNOSTICS ---\n");
 
-    /* Test 1: Standard Malloc & Free */
-    kprintf("[Test 1] Standard malloc(128)... ");
-    void *p1 = malloc(128);
-    if (p1) {
-        kprintf("Allocated (%p). Freeing... ", p1);
-        free(p1);
-        kprintf("OK.\n");
-    } else {
-        kprintf("FAILED.\n");
-    }
-
-    /* Test 2: Newlib Internal Allocator (strdup)
-     * This is the exact function Linenoise uses when you hit ENTER! */
-    kprintf("[Test 2] Newlib strdup()... ");
-    char *p2 = strdup("Felix OS Test String");
-    if (p2) {
-        kprintf("Allocated (%p). Freeing... ", (void *)p2);
-        free(p2);
-        kprintf("OK.\n");
-    } else {
-        kprintf("FAILED.\n");
-    }
-
-    /* Test 3: Calloc & Realloc */
-    kprintf("[Test 3] calloc & realloc... ");
-    void *p3 = calloc(4, 32);
-    if (p3) {
-        p3 = realloc(p3, 256);
-        kprintf("Allocated/Reallocated (%p). Freeing... ", p3);
-        free(p3);
-        kprintf("OK.\n");
-    } else {
-        kprintf("FAILED.\n");
-    }
-
-    kprintf("--- MEMORY DIAGNOSTICS COMPLETE ---\n\n");
-}
 static void init_task(void *arg) {
     (void)arg;
     kprintf("\r\n[Kernel] init_task called!\r\n");
@@ -133,7 +94,6 @@ static void init_task(void *arg) {
 
     printf("\n[Kernel] FreeRTOS Engine is ticking. Entering Shell...\n");
 
-    //test_memory_wrappers();
     /* Launch User Space */
     status = flx_sh_main(0, NULL);
 
@@ -168,7 +128,7 @@ void u54_1(void)
 #if 1
     /* Spawn the background daemon to handle SD card hotplugging */
     void *blk_handle = NULL;
-    int status = sched_thread_create(&blk_handle, "BlkDaemon", 16384, 3, blk_manager_daemon_task, NULL);
+    int status = sched_thread_create(&blk_handle, "BlkDaemon", 4096, 3, blk_manager_daemon_task, NULL);
     if (status) {
         kprintf("\r\n[Kernel] Failed to create BlkDaemon. Status: %d\r\n", status);
     }
@@ -176,7 +136,7 @@ void u54_1(void)
 
     /* Spawn the primary OS Init Task */
     void *shell_handle = NULL;
-    sched_thread_create(&shell_handle, "InitShell", 32768, 2, init_task, NULL);
+    sched_thread_create(&shell_handle, "InitShell", 16384, 2, init_task, NULL);
 
     kprintf("[Kernel] After sched_thread_create\n");
 

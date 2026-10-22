@@ -63,7 +63,7 @@ HEAP_SIZE           = 1k;   /* needs to be calculated for your application */
 /*
  * There is common area for shared variables, accessed from a pointer in a harts HLS
  */
-SIZE_OF_COMMON_HART_MEM = 4k;
+SIZE_OF_COMMON_HART_MEM = 0k;
 
 /* 
  * The stack size needs to be calculated for your application. It must be aligned.
@@ -83,12 +83,14 @@ SIZE_OF_COMMON_HART_MEM = 4k;
  * Stack size for each hart's application.
  * These are the stack sizes that will be allocated to each hart before starting
  * each hart's application function, e51(), u54_1(), u54_2(), u54_3(), u54_4().
+ * In Felix OS, Hart 0 (e51) runs startup, Hart 1 (u54_1) runs the OS, and
+ * Harts 2-4 are parked in WFI.
  */
-STACK_SIZE_E51_APPLICATION = 16k;
+STACK_SIZE_E51_APPLICATION = 4k;
 STACK_SIZE_U54_1_APPLICATION = 16k;
-STACK_SIZE_U54_2_APPLICATION = 16k;
-STACK_SIZE_U54_3_APPLICATION = 16k;
-STACK_SIZE_U54_4_APPLICATION = 16k;
+STACK_SIZE_U54_2_APPLICATION = 1k;
+STACK_SIZE_U54_3_APPLICATION = 1k;
+STACK_SIZE_U54_4_APPLICATION = 1k;
 
 
 SECTIONS

@@ -105,13 +105,12 @@ static void mss_serial_tx_handler(mss_uart_instance_t *uart) {
         MSS_UART_fill_tx_fifo(uart, chunk, count);
         uart->tx_buff_size = 1;
         uart->tx_idx = 0;
+        uart->hw_reg->IER |= MSS_UART_TBE_IRQ;
     } else {
         uart->tx_buff_size = 0;
         uart->tx_idx = 0;
-#if 1
-        // If we disable the IRQ here, where do we re-enable it?
         uart->hw_reg->IER &= ~MSS_UART_TBE_IRQ;
-#endif
+        flx_serial_isr_tx_done(dev->id);
     }
 }
 
@@ -147,7 +146,11 @@ static int mss_hw_init(int dev_id, void *hw_instance) {
 
 static void mss_tx_kickstart(void *hw_instance, volatile bool *tx_active_flag) {
     mss_uart_instance_t *uart = (mss_uart_instance_t *)hw_instance;
-    uart->hw_reg->IER |= MSS_UART_TBE_IRQ;
+    /* When kickstarting from idle, the hardware FIFO may already be empty.
+     * On 16550/MSS UARTs, enabling TBE in IER does not assert an interrupt
+     * if the transmitter is already empty. Calling mss_serial_tx_handler directly
+     * primes the FIFO with initial bytes so transmission begins and TBE IRQ fires. */
+    mss_serial_tx_handler(uart);
 }
 
 static void mss_irq_mask(void *hw_instance, bool mask) {

@@ -69,6 +69,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -316,6 +320,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -557,6 +565,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -805,6 +817,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -1061,6 +1077,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V/chip_specific_extensions/RISCV_MTIME_CLINT_no_extensions}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -1310,6 +1330,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -1557,6 +1581,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -1798,6 +1826,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -2046,6 +2078,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -2294,6 +2330,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -2541,6 +2581,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -2782,6 +2826,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>
@@ -3038,6 +3086,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Kernel/portable/GCC/RISC-V/chip_specific_extensions/RISCV_MTIME_CLINT_no_extensions}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/osal/freertos}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/include/private}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/FreeRTOS-Plus-POSIX/FreeRTOS-Plus-POSIX/include/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/arch/riscv64/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/middleware/felix/external/fatfs/source}&quot;"/>

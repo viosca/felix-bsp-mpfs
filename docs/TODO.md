@@ -74,17 +74,37 @@ Resolve the memory bottleneck where PolarFire's 512KB LIM is insufficient for Fe
 
 Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather than hand-rolling individual POSIX wrappers. (See [`docs/freertos_posix_integration_plan.md`](file:///c:/git/felix-bsp-mpfs/docs/freertos_posix_integration_plan.md) for architectural details).
 
-- [ ] **Phase 1: Submodule & Directory Setup**
-  - [ ] Add `FreeRTOS-Plus-POSIX` submodule under `felix/external/freertos-posix`.
-  - [ ] Add `FreeRTOS-Plus-POSIX/include` and `FreeRTOS-Plus-POSIX/include/portable` to Eclipse CDT include paths.
-- [ ] **Phase 2: Configuration & Portable Headers**
-  - [ ] Create `FreeRTOS_POSIX_portable.h` defining PolarFire SoC / RISC-V types (`pthread_t`, `pthread_attr_t`, `pthread_mutex_t`, etc.).
-  - [ ] Create `FreeRTOS_POSIX_portable_default.h` ensuring no collisions with GCC Newlib toolchain (`riscv64-unknown-elf-gcc`).
-- [ ] **Phase 3: Selective Component Compilation**
-  - [ ] Enable `FreeRTOS_POSIX_pthread.c` (threads, attributes, join/detach).
-  - [ ] Enable `FreeRTOS_POSIX_pthread_mutex.c` and `FreeRTOS_POSIX_pthread_cond.c` (synchronization).
-  - [ ] Enable `FreeRTOS_POSIX_sched.c` and `FreeRTOS_POSIX_semaphore.c`.
-  - [ ] Keep file/storage I/O (`open`, `read`, `write`, `close`, `lseek`) routed to Felix VFS (`felix/syscalls.c`), keeping FreeRTOS POSIX I/O disabled.
+- [x] **Phase 1: Submodule & Directory Setup**
+  - [x] Add `FreeRTOS-Plus-POSIX` submodule under `felix/external/FreeRTOS-Plus-POSIX`.
+  - [x] Add `FreeRTOS-Plus-POSIX` private/portable headers to Eclipse CDT include paths and expose non-colliding wrapper headers in `felix/include/`.
+- [x] **Phase 2: Configuration & Portable Headers**
+  - [x] Create `felix/osal/freertos/FreeRTOS_POSIX_portable.h` defining PolarFire SoC / 64-bit RISC-V types (`pthread_t`, `pthread_attr_t`, `pthread_mutex_t`, `pthread_cond_t`, `pthread_barrier_t`, `sem_t`, `timer_t`).
+  - [x] Resolve 32-bit Newlib `<sys/_pthreadtypes.h>` truncation and `<errno.h>` / `<fcntl.h>` / `<signal.h>` / `<time.h>` collisions with `riscv64-unknown-elf-gcc`.
+- [x] **Phase 3: Kconfig-Driven Selective Component Compilation**
+  - [x] Create single translation-unit bridge `felix/osal/freertos/freertos_posix.c` gated by Kconfig (`CONFIG_FELIX_FREERTOS_PLUS_POSIX`, `CONFIG_FELIX_POSIX_PTHREAD`, `CONFIG_FELIX_POSIX_SEMAPHORE`, `CONFIG_FELIX_POSIX_MQUEUE`, `CONFIG_FELIX_POSIX_TIMER`).
+  - [x] Enable `FreeRTOS_POSIX_pthread.c`, `FreeRTOS_POSIX_pthread_mutex.c`, `FreeRTOS_POSIX_pthread_cond.c`, and `FreeRTOS_POSIX_pthread_barrier.c`.
+  - [x] Enable `FreeRTOS_POSIX_sched.c`, `FreeRTOS_POSIX_semaphore.c`, `FreeRTOS_POSIX_mqueue.c`, and `FreeRTOS_POSIX_timer.c`.
+  - [x] Keep file/storage I/O (`open`, `read`, `write`, `close`, `lseek`) routed to Felix VFS (`felix/kernel/syscalls.c`) and inherit parent `FlxProcPCB_t *` across `pthread_create()` via `traceTASK_CREATE`.
+  - [x] Implement and verify `/test/posix_test` in `felix/fs/rootfs/test/flx_fs_test.c`:
+    - [x] Expanded to test `pthread_create`/`join` (64-bit return values), `pthread_mutex_lock`/`unlock`, `pthread_cond_wait`/`signal`, `pthread_barrier_wait`, `sem_init`/`post`/`wait`, `mqueue` (`mq_open`/`send`/`receive`/`close`/`unlink`), `timer_create`/`settime` (`SIGEV_THREAD`), and VFS coexistence across threads.
+  - [x] Design and implement DRY header-only test framework [`felix/include/flx_test.h`](file:///c:/git/felix/include/flx_test.h):
+    - [x] State tracking via `FlxTestCtx_t`, relational comparison operators (`"=="`, `"!="`, `"<"`, `"<="`, `">"`, `">="`), call-site location latching/clearing, and standardized CLI options parsing (`-v`, `-F`, `-q`, `-h`).
+  - [x] Implement complete `/test` command suite modularized into separate source files in [`felix/fs/rootfs/test/`](file:///c:/git/felix/fs/rootfs/test/):
+    - [x] `/test/mem_test`: `malloc` (8-byte alignment), `calloc` (zero-fill), `realloc` (retention), `strdup`, and multi-block interleaved stress.
+    - [x] `/test/dev_test`: `/dev/console` stat/major/minor (`4, 4`), `/dev` enumeration, `uname()`, `setenv`/`getenv`/`unsetenv`, and monotonic clock progression.
+    - [x] `/test/vfs_test`: file creation/write, `stat`/`fstat`, `lseek`/`read`, `mkdir`/`opendir`/`readdir`, `fstatat`/`unlinkat`/`rmdir` cleanup, plus custom `-d <dir>` target option.
+    - [x] `/test/posix_test`: `pthread_create`/`join` (64-bit retval), mutex contention, condition variables, barrier synchronization, semaphores, message queues, and interval timers.
+    - [x] `/test/wordexp_test`: word splitting, single/double quotes, escape characters, environment variable expansion, and `execvp` path resolution.
+    - [x] `/test/io_test`: `O_APPEND` semantic guarantees, `ftruncate` zero-expansion & shrinking, path-based `truncate()`, and `getline()` dynamic streaming.
+    - [x] `/test/path_test`: deep nested directory topology (5 levels), canonicalization of relative `.` and `..`, `chdir`/`getcwd`, and error semantics.
+    - [x] `/test/storage_test`: SD card hardware detection, block node presence (`/dev/sd0p1`), and FatFs volume mounting/read/write.
+    - [x] `/test/stress_test`: rapid thread creation/join churn, concurrent multi-thread mutex contention, FIFO message queues, and monotonic jitter verification.
+    - [x] `/test/all`: sequential runner executing all 9 test suites and reporting aggregate pass/fail status.
+    - [x] Verified **100% ALL PASSED (9/9 suites)** on hardware on PolarFire SoC Discovery Kit.
+    - [x] Bound commands to linker sections (`FLX_BINFMT_CMD_SECTION` & `FLX_BINFMT_DECLARE_CMD_PAYLOAD`) for exact executable byte size reporting in `stat` and `ls -li`.
+  - [x] Enhance `/bin/ls` with `-i` flag to display runtime memory address of executables/files (distinguishing LIM `0x08000000` vs DDR `0x80000000` execution).
+  - [x] Rebalance unused hart stacks (Harts 2-4) in `mpfs-lim.ld` to guarantee 100% clean builds fitting into 512 KB `l2lim`.
+  - [x] Build both `DDR-Debug-DiscoveryKit` and `LIM-Debug-DiscoveryKit` targets (0 errors, 0 warnings) and regenerate `payload.bin`.
 - [ ] **Phase 4: Felix Kernel Refactor**
   - [ ] Refactor `felix/kernel/sched.c` and `felix/kernel/process.c` to use standard `pthread` calls.
   - [ ] Verify shell (`flx_sh`) runs commands as standard POSIX pthreads.
@@ -95,15 +115,24 @@ Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather t
 
 Adopt the in-tree Kconfig system from `felix/external/toybox/kconfig` to generate compile-time profile headers (`autoconf.h`). (See [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/felix-bsp-mpfs/docs/dynamic_loading_and_configurability_design.md)).
 
-- [ ] **Kconfig Tooling Integration**
-  - [ ] Wire build targets to compile host `conf` / `mconf` from `felix/external/toybox/kconfig/`.
-  - [ ] Create root `Kconfig` for Felix defining memory models, loader options, and POSIX features.
-- [ ] **Target Defconfigs**
-  - [ ] Create `disco_lim_defconfig` (monolithic, <150 KB, deterministic real-time, no loader).
-  - [ ] Create `disco_ddr_defconfig` (DDR memory, ELF loader, dynamic libraries, full POSIX).
-  - [ ] Create `disco_amp_defconfig` (Harts 1-3 LIM control, Hart 4 DDR supervisor).
-- [ ] **Header Generation**
-  - [ ] Validate automated generation of `include/generated/autoconf.h`.
+- [x] **Kconfig Tooling Integration**
+  - [x] Create root `felix/Kconfig` and `felix/scripts/kconfig.py` defining memory models, loader options, and granular FreeRTOS+POSIX features.
+  - [x] Add interactive terminal menu (`menuconfig`) and native Tk graphical editor (`guiconfig`) support.
+- [x] **Granular Test Suite Configuration & Subsystem Dependency Gating**
+  - [x] Create `menu "Verification & Test Suite"` in `felix/Kconfig` with master toggle `CONFIG_FELIX_TEST_SUITE` and runner toggle `CONFIG_FELIX_TEST_ALL`.
+  - [x] Add granular toggles for all 9 suites with strict subsystem dependencies:
+    - `FELIX_TEST_DEV`, `FELIX_TEST_VFS`, `FELIX_TEST_IO`, `FELIX_TEST_PATH` depend on `FELIX_VFS`.
+    - `FELIX_TEST_POSIX` and `FELIX_TEST_STRESS` depend on `FELIX_FREERTOS_PLUS_POSIX`.
+    - `FELIX_TEST_WORDEXP` depends on `FELIX_POSIX`.
+    - `FELIX_TEST_STORAGE` depends on `FELIX_BLK_MANAGER`.
+  - [x] Dynamic `/test/all` runner automatically discovering and executing only Kconfig-enabled suites.
+  - [x] Stubbing architecture preserving CDT `subdir.mk` builds while stripping ~52 KB code when tests are disabled.
+- [x] **Target Defconfigs**
+  - [x] Create `disco_lim_defconfig` (monolithic, deterministic real-time, no loader).
+  - [x] Create `disco_ddr_defconfig` (DDR memory, ELF loader, dynamic libraries, full POSIX).
+  - [x] Create `disco_amp_defconfig` (Harts 1-3 LIM control, Hart 4 DDR supervisor).
+- [x] **Header Generation**
+  - [x] Validate automated generation of `felix/include/generated/autoconf.h`.
 
 ---
 
