@@ -1,71 +1,69 @@
-# Felix OS - Eclipse Workspace Wrapper
+<div align="center">
+  <img src="felix/docs/assets/felix_mascot.png" alt="Felix OS Mascot" width="160" />
+  <h1>Felix OS — Microchip PolarFire SoC BSP</h1>
+  <p><strong>Board Support Package and workspace wrapper for the Microchip PolarFire SoC Discovery Kit (64-bit RISC-V)</strong></p>
+</div>
 
-This repository is the umbrella Eclipse project that binds [**Felix OS**](https://github.com/viosca/felix) to the **Microchip PolarFire SoC** bare-metal hardware library.
+This repository is the **Board Support Package (BSP)** and SoftConsole/Eclipse workspace wrapper that runs [**Felix OS**](https://github.com/viosca/felix) on the **Microchip PolarFire SoC Discovery Kit** (64-bit RISC-V).
 
-It contains the pre-configured `.project` and `.cproject` files needed to compile the OS perfectly using Eclipse CDT, utilizing Git Submodules to pull in the correct versions of the OS and the hardware abstraction layer (HAL).
+To keep Felix OS strictly hardware- and RTOS-agnostic, all PolarFire-specific startup code, multi-hart boot logic, memory layouts (512 KB LIM and 1 GB DDR), hardware drivers (MMUART and SD/MMC), and HSS SD-boot packaging live here—while the core OS lives cleanly in the [`felix`](felix/) repository.
 
-## 🚀 Getting Started
+---
+
+## Quick Start
 
 ### 1. Prerequisites
+* **Git** and **Python 3**
+* **RISC-V GNU Cross-Compiler** (`riscv64-unknown-elf-gcc`) and `make` on your `PATH`
+* *(Optional)* **Microchip SoftConsole / Eclipse CDT** for IDE builds and JTAG debugging
+* *(Optional, for standalone SD boot)* **WSL + `hss-payload-generator`** to package `payload.bin`
 
-* **Git** installed on your system.
+### 2. Set Up the Workspace
+Run the workspace setup script after cloning. It ensures the sibling [`felix`](https://github.com/viosca/felix) and [`mpfs-platform`](https://github.com/polarfire-soc/platform) repositories are present and linked into the project:
 
-* **Eclipse CDT** (or Microchip SoftConsole).
+```powershell
+# Windows (PowerShell - no Administrator rights required)
+.\setup_workspace.ps1
+```
 
-* **RISC-V GNU Cross-Compiler** (`riscv64-unknown-elf-gcc`) added to your system `$PATH`.
+```bash
+# Linux / macOS
+./setup_workspace.sh
+```
 
-### 2. Cloning the Repository (CRITICAL)
+### 3. Build Firmware
 
-Because this project uses Git Submodules for the OS and the Microchip HAL, you **must** clone it recursively so Git downloads the actual files inside the folders.
+**From the Command Line:**
+```powershell
+# Build both DDR and LIM configurations
+.\scripts\build.bat
 
-Run this in your terminal:
+# Build DDR and package HSS payload.bin for SD card boot
+.\scripts\build.bat -Target ddr -Payload
+```
 
-    git clone --recursive https://github.com/yourusername/felix-proj-mpfs.git
+**From SoftConsole / Eclipse CDT:**
+1. Go to **File -> Import... -> General -> Existing Projects into Workspace**.
+2. Select the `felix-bsp-mpfs` directory (leave **"Copy projects into workspace" unchecked**).
+3. Select either `DDR-Debug-DiscoveryKit` or `LIM-Debug-DiscoveryKit` and click **Build**.
+   *(Tip: If linked folders show a warning icon on first open, right-click the project and press **F5 / Refresh**.)*
 
-*(If you already cloned it without that flag, run `git submodule update --init --recursive` inside the folder).*
+### 4. Booting on the Discovery Kit
+* **Standalone MicroSD Boot (HSS):** Prepare a card once with `scripts\prepare_sd.bat`, or update the boot image on an existing card with `scripts\update_payload.bat`. Connect a serial terminal (`115200 8N1`) to **MMUART4** for the interactive Felix shell (`MMUART0` shows HSS boot logs).
+* **JTAG Debugging:** Pre-configured OpenOCD/GDB launch configurations for both DDR and LIM live in [`launch_configs/debug/`](launch_configs/debug/).
 
-### 3. Importing into Eclipse
+---
 
-Do not create a new project. We need to import the pre-configured workspace:
+## Documentation
 
-1. Open Eclipse.
+> **Note for Contributors & AI Assistants:** Before adding or modifying code across this workspace, review the **Felix Golden Rules** to ensure board-specific code stays in `felix-bsp-mpfs` and portable OS code stays in `felix`.
 
-2. Go to **File -> Import...**
+### BSP & Hardware Documentation (This Repo)
+* **[PolarFire SoC Boot & Memory Architecture](docs/polarfire_soc_boot_architecture.md)** — E51/U54 multi-hart boot flow, LIM vs. DDR memory maps, HSS payload packaging, and JTAG debugging details.
+* **[Development Roadmap & TODO](docs/TODO.md)** — Completed hardware milestones and active development tasks.
 
-3. Select **General -> Existing Projects into Workspace** and click **Next**.
-
-4. Browse to the `felix-proj-mpfs` folder you just cloned.
-
-5. **IMPORTANT:** Ensure that **"Copy projects into workspace" is UNCHECKED**.
-
-6. Click **Finish**.
-
-### 4. Compiling
-
-1. In the Project Explorer, right-click the `felix-proj-mpfs` project.
-
-2. Select **Clean Project**.
-
-3. Click the **Build** icon (the Hammer) in the top toolbar.
-
-The compiled executable (`.elf`) will be generated in the respective build folder (e.g., `LIM-Debug-DiscoveryKit/`).
-
-## 🛠️ Project Architecture & Quirks
-
-This project uses **Virtual Linked Folders** to keep the workspace clean without duplicating files.
-
-* `src/platform` is a virtual link to the `mpfs-platform` submodule.
-
-* `src/middleware/felix` is a virtual link to the `felix` submodule.
-
-### Troubleshooting: The Orange `!` in Eclipse
-
-If you open Eclipse and see a red/orange `!` over the `platform` or `felix` folders, it means Eclipse hasn't loaded the submodules into its internal cache yet.
-
-* **Fix:** Right-click the root `felix-proj-mpfs` project and click **Refresh (F5)**. The virtual links will immediately resolve.
-
-### Troubleshooting: `newlib_stubs.c` Conflicts
-
-Felix OS includes its own POSIX-compliant system call router. To prevent "Multiple Definition" linking errors, Microchip's default bare-metal syscalls are deliberately ignored by the compiler.
-
-* If you ever reset the project paths, ensure that `src/platform/mpfs_hal/startup_gcc/newlib_stubs.c` is **Excluded from Build** in the file properties.
+### Core Felix OS Documentation (`felix/` Submodule)
+* **[Felix OS Overview (`felix/README.md`)](felix/README.md)** — High-level overview of Felix OS capabilities and configuration.
+* **[Felix Golden Rules & Architectural Goals](felix/docs/GOLDEN_RULES.md)** — Core OS philosophy, hardware/RTOS quarantine rules, and AI coding guardrails.
+* **[Dynamic Loading, Shared Libraries & Configurability](felix/docs/dynamic_loading_and_configurability_design.md)** — Kconfig system, PIE ELF loader, and shared library design.
+* **[FreeRTOS+POSIX Integration Plan](felix/docs/freertos_posix_integration_plan.md)** — POSIX threads, synchronization, and IPC architecture.

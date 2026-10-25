@@ -2,6 +2,8 @@
 
 This document tracks active development goals, architectural milestones, and planned tasks for Felix OS on the Microchip PolarFire SoC Discovery Kit.
 
+> **Architectural Guardrails:** All code changes across `felix` and `felix-bsp-mpfs` must comply with [`felix/docs/GOLDEN_RULES.md`](../felix/docs/GOLDEN_RULES.md).
+
 ---
 
 ## 1. DDR Execution & Boot Architecture
@@ -72,7 +74,7 @@ Resolve the memory bottleneck where PolarFire's 512KB LIM is insufficient for Fe
 
 ## 2. FreeRTOS+POSIX Layer Integration
 
-Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather than hand-rolling individual POSIX wrappers. (See [`docs/freertos_posix_integration_plan.md`](file:///c:/git/felix-bsp-mpfs/docs/freertos_posix_integration_plan.md) for architectural details).
+Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather than hand-rolling individual POSIX wrappers. (See [`felix/docs/freertos_posix_integration_plan.md`](../felix/docs/freertos_posix_integration_plan.md) for architectural details).
 
 - [x] **Phase 1: Submodule & Directory Setup**
   - [x] Add `FreeRTOS-Plus-POSIX` submodule under `felix/external/FreeRTOS-Plus-POSIX`.
@@ -87,9 +89,9 @@ Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather t
   - [x] Keep file/storage I/O (`open`, `read`, `write`, `close`, `lseek`) routed to Felix VFS (`felix/kernel/syscalls.c`) and inherit parent `FlxProcPCB_t *` across `pthread_create()` via `traceTASK_CREATE`.
   - [x] Implement and verify `/test/posix_test` in `felix/fs/rootfs/test/flx_fs_test.c`:
     - [x] Expanded to test `pthread_create`/`join` (64-bit return values), `pthread_mutex_lock`/`unlock`, `pthread_cond_wait`/`signal`, `pthread_barrier_wait`, `sem_init`/`post`/`wait`, `mqueue` (`mq_open`/`send`/`receive`/`close`/`unlink`), `timer_create`/`settime` (`SIGEV_THREAD`), and VFS coexistence across threads.
-  - [x] Design and implement DRY header-only test framework [`felix/include/flx_test.h`](file:///c:/git/felix/include/flx_test.h):
+  - [x] Design and implement DRY header-only test framework [`felix/include/flx_test.h`](../felix/include/flx_test.h):
     - [x] State tracking via `FlxTestCtx_t`, relational comparison operators (`"=="`, `"!="`, `"<"`, `"<="`, `">"`, `">="`), call-site location latching/clearing, and standardized CLI options parsing (`-v`, `-F`, `-q`, `-h`).
-  - [x] Implement complete `/test` command suite modularized into separate source files in [`felix/fs/rootfs/test/`](file:///c:/git/felix/fs/rootfs/test/):
+  - [x] Implement complete `/test` command suite modularized into separate source files in [`felix/fs/rootfs/test/`](../felix/fs/rootfs/test/):
     - [x] `/test/mem_test`: `malloc` (8-byte alignment), `calloc` (zero-fill), `realloc` (retention), `strdup`, and multi-block interleaved stress.
     - [x] `/test/dev_test`: `/dev/console` stat/major/minor (`4, 4`), `/dev` enumeration, `uname()`, `setenv`/`getenv`/`unsetenv`, and monotonic clock progression.
     - [x] `/test/vfs_test`: file creation/write, `stat`/`fstat`, `lseek`/`read`, `mkdir`/`opendir`/`readdir`, `fstatat`/`unlinkat`/`rmdir` cleanup, plus custom `-d <dir>` target option.
@@ -113,7 +115,7 @@ Modernize the POSIX API layer using the official FreeRTOS+POSIX library rather t
 
 ## 3. Configurability Subsystem (Kconfig)
 
-Adopt the in-tree Kconfig system from `felix/external/toybox/kconfig` to generate compile-time profile headers (`autoconf.h`). (See [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/felix-bsp-mpfs/docs/dynamic_loading_and_configurability_design.md)).
+Adopt the in-tree Kconfig system from `felix/external/toybox/kconfig` to generate compile-time profile headers (`autoconf.h`). (See [`felix/docs/dynamic_loading_and_configurability_design.md`](../felix/docs/dynamic_loading_and_configurability_design.md)).
 
 - [x] **Kconfig Tooling Integration**
   - [x] Create root `felix/Kconfig` and `felix/scripts/kconfig.py` defining memory models, loader options, and granular FreeRTOS+POSIX features.
@@ -138,7 +140,7 @@ Adopt the in-tree Kconfig system from `felix/external/toybox/kconfig` to generat
 
 ## 4. Position-Independent Dynamic ELF Loader & Shared Libraries (DLL / `.so`)
 
-Enable loading external applications and runtime driver plugins from VFS into DDR RAM. (See [`docs/dynamic_loading_and_configurability_design.md`](file:///c:/git/felix-bsp-mpfs/docs/dynamic_loading_and_configurability_design.md)).
+Enable loading external applications and runtime driver plugins from VFS into DDR RAM. (See [`felix/docs/dynamic_loading_and_configurability_design.md`](../felix/docs/dynamic_loading_and_configurability_design.md)).
 
 - [ ] **Kernel Symbol Export (`ksymtab`)**
   - [ ] Implement `FLX_EXPORT_SYMBOL()` registry for C runtime, POSIX, and FreeRTOS APIs.
